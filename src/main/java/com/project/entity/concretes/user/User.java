@@ -82,8 +82,13 @@ public class User {
 
     @JsonIgnore
     @ManyToMany
-
     private List<Meet> meets;
+
+    @OneToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private UserRole userRole;
+
+
 
 
 

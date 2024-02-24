@@ -1,6 +1,7 @@
 package com.project.controller.user;
 
 import com.project.payload.request.user.UserRequest;
+import com.project.payload.request.user.UserRequestWithoutPassword;
 import com.project.payload.response.abstracts.BaseUserResponse;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.payload.response.user.UserResponse;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -42,6 +44,25 @@ public class UserController {
     public ResponseMessage<BaseUserResponse> getUserById(@PathVariable Long userId){
         return userService.getUserById(userId);
     }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASSISTANT_MANAGER')")
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id, HttpServletRequest HttpServletRequest){
+        return ResponseEntity.ok(userService.deleteUserById(id, HttpServletRequest));
+    }
+
+    @PutMapping("/update({userId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseMessage<BaseUserResponse> updateAdminDeanViceDeanForAdmin(@PathVariable Long userId, @Valid @RequestBody UserRequest userRequest){
+        return userService.updateUser(userId, userRequest);
+    }
+
+    @PatchMapping("/updateUser")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASSISTANT_MANAGER', 'TEACHER')")
+    public ResponseEntity<String> updateUser(@Valid @RequestBody UserRequestWithoutPassword userRequestWithoutPassword, HttpServletRequest httpServletRequest{
+       return userService.updateUserForUsers(userRequestWithoutPassword, httpServletRequest);
+    }
+
 
 
 

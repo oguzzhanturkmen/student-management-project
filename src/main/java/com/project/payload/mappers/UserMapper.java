@@ -79,4 +79,20 @@ public class UserMapper {
                 .build();
 
     }
+
+    public User mapUserRequestToUpdatedUser(UserRequest userRequest, Long userId) {
+        return User.builder()
+                .username(userRequest.getUsername())
+                .email(userRequest.getEmail())
+                .name(userRequest.getName())
+                .surname(userRequest.getSurname())
+                .phoneNumber(userRequest.getPhoneNumber())
+                .ssn(userRequest.getSsn())
+                .birthPlace(userRequest.getBirthPlace())
+                .birthDate(userRequest.getBirthDate())
+                .id(userId)
+                .gender(userRequest.getGender())
+                .password(userRequest.getPassword())
+                .build();
+    }
 }

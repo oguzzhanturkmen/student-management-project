@@ -48,6 +48,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         } catch (UsernameNotFoundException e) {
             LOGGER.error("User Not Found with username: " + e.getMessage());
         }
+        filterChain.doFilter(request, response);
 
     }
 

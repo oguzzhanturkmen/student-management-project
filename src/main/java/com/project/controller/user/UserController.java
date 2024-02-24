@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -59,9 +60,15 @@ public class UserController {
 
     @PatchMapping("/updateUser")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASSISTANT_MANAGER', 'TEACHER')")
-    public ResponseEntity<String> updateUser(@Valid @RequestBody UserRequestWithoutPassword userRequestWithoutPassword, HttpServletRequest httpServletRequest{
+    public ResponseEntity<String> updateUser(@Valid @RequestBody UserRequestWithoutPassword userRequestWithoutPassword, HttpServletRequest httpServletRequest){
        return userService.updateUserForUsers(userRequestWithoutPassword, httpServletRequest);
     }
+    @GetMapping("/getUserByName")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASSISTANT_MANAGER')")
+    public List<UserResponse> getUserByName(@RequestParam(name = "name") String username){
+        return userService.getUserByName(username);
+    }
+
 
 
 

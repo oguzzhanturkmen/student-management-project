@@ -14,9 +14,12 @@ public class ErrorMessages {
     public static final String USER_CREATED = "User is Saved Successfully";
 
     public static final String NOT_FOUND_USER_MESSAGE = "Error: User not found with id %s";
+    public static final String NOT_FOUND_USER_WITH_ROLE_MESSAGE = "Error: User not found with this role";
+    public static final String NOT_FOUND_USER_WITH_USERNAME_MESSAGE = "Error: User not found with this username";
 
+
+    public static final String NOT_FOUND_ADVISOR_MESSAGE = "Error: Advisor Teacher with id %s not found";
+    public static final String NOT_PERMITTED_METHOD_MESSAGE = "Method not allowed";
     private ErrorMessages() {
     }
-
-    public static final String NOT_PERMITTED_METHOD_MESSAGE = "Method not allowed";
 }

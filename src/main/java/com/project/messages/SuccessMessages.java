@@ -8,6 +8,8 @@ public class SuccessMessages {
     public static final String TEACHER_UPDATED_SUCCESSFULLY =   "Teacher is updated successfully";
     public static final String ADVISOR_TEACHER_SAVED_SUCCESSFULLY = "Advisor Teacher is saved successfully";
     public static final String ADVISOR_TEACHER_DELETE = "Advisor Teacher is deleted successfully";
+    public static final String STUDENT_SAVED = "Student is saved successfully";
+    public static final String STUDENT_UPDATE = "Student is updated successfully";
 
     private SuccessMessages() {
     }

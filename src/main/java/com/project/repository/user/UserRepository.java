@@ -38,4 +38,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByAdvisorTeacherId(Long id);
 //@Query("SELECT u FROM User u WHERE u.isAdvisor = ?1")
     List<User> findByIsAdvisor(Boolean aTrue);
+
+    @Query("SELECT (COUNT (u) > 0 ) FROM User u WHERE u.userRole.roleType = ?1")
+    boolean findStudent(RoleType roleType);
+
+    @Query("SELECT MAX(u.studentNumber) FROM User u ")
+    int getMaxStudentNumber();
 }

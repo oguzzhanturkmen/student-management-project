@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -13,9 +14,11 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UpdatePasswordRequest {
     @NotBlank(message = "New password cannot be blank")
+    @Size(min = 6, max = 40, message = "Password must be between 6 and 40 characters")
     private String oldPassword;
 
     @NotBlank(message = "New password cannot be blank")
+    @Size(min = 6, max = 40, message = "Password must be between 6 and 40 characters")
     private String newPassword;
 
 

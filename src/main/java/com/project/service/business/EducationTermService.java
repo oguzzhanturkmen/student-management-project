@@ -130,4 +130,8 @@ public class EducationTermService {
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
+
+    public EducationTerm findEducationTermById(Long educationTermId) {
+        return isEducationTermExist(educationTermId);
+    }
 }

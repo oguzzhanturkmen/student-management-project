@@ -17,6 +17,9 @@ public class PageableHelper {
         }
         return pageable;
     }
+    public Pageable createPageableWithProperties(int page, int size) {
+        return PageRequest.of(page,size, Sort.by("id").descending());
+    }
 
 
 }

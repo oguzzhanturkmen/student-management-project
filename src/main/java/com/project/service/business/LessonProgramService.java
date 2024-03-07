@@ -124,6 +124,20 @@ public class LessonProgramService {
     }
 
     public Set<LessonProgramResponse> getByStudentId(Long id) {
-        return null;
+        User student = methodHelper.isUserExist(id);
+        methodHelper.checkRole(student, RoleType.STUDENT);
+
+        return lessonProgramRepository.findByUsers_IdEquals(id)
+                .stream()
+                .map(lessonProgramMapper::mapLessonProgramToLessonProgramResponse)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<LessonProgram> getLessonProgramById(Set<Long> lessonsIdList) {
+        Set<LessonProgram> lessonPrograms = lessonProgramRepository.getLessonProgramByLessonProgramIdList(lessonsIdList);
+        if (lessonPrograms.isEmpty()) {
+            throw new ResourceNotFoudeException(ErrorMessages.NOT_FOUND_LESSON_PROGRAM_BY_LESSON_ID);
+        }
+        return lessonPrograms;
     }
 }

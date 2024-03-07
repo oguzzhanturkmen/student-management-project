@@ -33,6 +33,11 @@ public class ErrorMessages {
     public static final String NOT_FOUND_LESSOIN_IN_LIST = "Error: Lesson not found in list";
     public static final String TIME_NOT_VALID_MESSAGE = "Time is not valid";
     public static final String NOT_FOUND_LESSON_PROGRAM_BY_ID = "Error: Lesson program not found with id %s";
+    public static final String NOT_FOUND_LESSON_PROGRAM_BY_LESSON_ID = "Error: Lesson program not found with lesson id";
+    public static final String LESSON_PROGRAM_ALREADY_EXIST = "Lesson program already exist";
+    public static final String STUDENT_INFO_NOT_FOUND = "Error: Student info not found";
+    public static final String STUDENT_INFO_NOT_FOUND_BY_STUDENT_ID = "Error: Student info not found by student id %s";
+
     ;
 
     private ErrorMessages() {

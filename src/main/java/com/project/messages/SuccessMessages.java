@@ -18,6 +18,11 @@ public class SuccessMessages {
     public static final String LESSON_FOUND = "Lesson is found successfully";
     public static final String LESSON_PROGRAM_SAVED = "Lesson program is saved successfully";
     public static final String LESSON_PROGRAM_DELETED = "Lesson program is deleted successfully";
+    public static final String LESSON_PROGRAM_ADDED = "Lesson program is added successfully";
+    public static final String STUDENT_INFO_SAVED = "Student info is saved successfully";
+    public static final String STUDENT_INFO_DELETE = "Student info is deleted successfully";
+    public static final String STUDENT_INFO_UPDATE = "Student info is updated successfully";
+    public static final String MEET_SAVED = "Meet is saved successfully";
 
     private SuccessMessages() {
     }

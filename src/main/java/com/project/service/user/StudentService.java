@@ -1,16 +1,20 @@
 package com.project.service.user;
 
+import com.project.entity.concretes.business.LessonProgram;
 import com.project.entity.concretes.user.User;
 import com.project.entity.concretes.user.UserRole;
 import com.project.entity.enums.RoleType;
 import com.project.messages.SuccessMessages;
 import com.project.payload.mappers.UserMapper;
+import com.project.payload.request.business.ChooseLessonProgramWithId;
 import com.project.payload.request.user.StudentRequest;
 import com.project.payload.request.user.StudentRequestWithoutPassord;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.payload.response.user.StudentResponse;
 import com.project.repository.user.UserRepository;
+import com.project.service.business.LessonProgramService;
 import com.project.service.helper.MethodHelper;
+import com.project.service.validator.DateTimeValidator;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +34,8 @@ public class StudentService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
+    private final LessonProgramService lessonProgramService;
+    private final DateTimeValidator dateTimeValidator;
 
 
     public ResponseMessage<StudentResponse> saveStudent(StudentRequest studentRequest) {
@@ -123,5 +130,25 @@ public class StudentService {
                 .message("Student is " + (status ? "active" : "passive"))
                 .httpStatus(HttpStatus.OK)
                 .build();
+    }
+
+    public ResponseMessage<StudentResponse> addLessonProgram(ChooseLessonProgramWithId chooseLessonProgramWithId, String username) {
+        User student = methodHelper.isUserExist(username);
+
+        Set<LessonProgram> lessonProgramSet = lessonProgramService.getLessonProgramById(chooseLessonProgramWithId.getLessonProgramId());
+
+        Set<LessonProgram> studentCurrentLessonProgram = student.getLessonsProgramList();
+        dateTimeValidator.checkLessonPrograms(lessonProgramSet , studentCurrentLessonProgram);
+
+        student.setLessonsProgramList(lessonProgramSet);
+
+        User savedStudent = userRepository.save(student);
+
+        return ResponseMessage.<StudentResponse>builder()
+                .message(SuccessMessages.LESSON_PROGRAM_ADDED)
+                .object(userMapper.mapUserToStudentResponse(savedStudent))
+                .httpStatus(HttpStatus.OK)
+                .build();
+
     }
 }

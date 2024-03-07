@@ -1,6 +1,7 @@
 package com.project.service.user;
 
 import com.project.contactmessage.messages.Messages;
+import com.project.entity.concretes.business.LessonProgram;
 import com.project.entity.concretes.user.User;
 import com.project.entity.enums.RoleType;
 import com.project.messages.SuccessMessages;
@@ -12,6 +13,7 @@ import com.project.payload.response.user.TeacherResponse;
 import com.project.payload.response.user.UserResponse;
 import com.project.repository.user.UserRepository;
 import com.project.repository.user.UserRoleRepository;
+import com.project.service.business.LessonProgramService;
 import com.project.service.helper.MethodHelper;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,10 +35,11 @@ public class TeacherService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final MethodHelper methodHelper;
+    private final LessonProgramService lessonProgramService;
 
     public ResponseMessage<TeacherResponse> saveTeacher(TeacherRequest teacherRequest) {
 
-        //TODO : Check lesson program
+        Set<LessonProgram> lessonProgramSet = lessonProgramService.getLessonProgramById(teacherRequest.getLessonsIdList());
 
         uniquePropertyValidator.checkDuplicate(teacherRequest.getUsername(), teacherRequest.getSsn(), teacherRequest.getPhoneNumber(), teacherRequest.getEmail());
 
@@ -43,7 +47,7 @@ public class TeacherService {
 
         teacher.setUserRole(userRoleService.getUserRole(RoleType.TEACHER));
 
-        //TODO : Save teacher lessons
+        teacher.setLessonsProgramList(lessonProgramSet);
 
         teacher.setPassword(passwordEncoder.encode(teacherRequest.getPassword()));
 
@@ -71,13 +75,14 @@ public class TeacherService {
 
         methodHelper.checkRole(teacher, RoleType.TEACHER);
 
-        // TODO : Get lesson programs and update
+        Set<LessonProgram> lessonPrograms = lessonProgramService.getLessonProgramById(teacherRequest.getLessonsIdList());
 
         uniquePropertyValidator.checkUniqueProperties(teacher , teacherRequest);
 
         User updatedTeacher = userMapper.mapTeacherRequestToUpdatedUser(teacherRequest, userId);
         updatedTeacher.setPassword(passwordEncoder.encode(teacherRequest.getPassword()));
         updatedTeacher.setUserRole(userRoleService.getUserRole(RoleType.TEACHER));
+        updatedTeacher.setLessonsProgramList(lessonPrograms);
 
         User savedTeacher = userRepository.save(updatedTeacher);
 

@@ -186,4 +186,11 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public User getUserByUserId(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE, userId)));
+    }
+
+    public List<User> getStudentById(Long[] studentIds) {
+        return userRepository.findByIdIn(studentIds);
+    }
 }

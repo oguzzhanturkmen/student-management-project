@@ -38,6 +38,7 @@ public class ErrorMessages {
     public static final String STUDENT_INFO_NOT_FOUND = "Error: Student info not found";
     public static final String STUDENT_INFO_NOT_FOUND_BY_STUDENT_ID = "Error: Student info not found by student id %s";
     public static final String MEET_HOURS_CONFLICT = "Meet hours conflict";
+    public static final String MEET_NOT_FOUND_MESSAGE = "Error: Meet not found";
 
     ;
 

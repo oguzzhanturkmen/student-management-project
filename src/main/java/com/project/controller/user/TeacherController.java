@@ -29,7 +29,7 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.saveTeacher(teacherRequest));
     }
 
-    @PutMapping("/update/{userId")
+    @PutMapping("/update/{userId}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASSISTANT_MANAGER')")
     public ResponseMessage<TeacherResponse> updateTeacherForManagers(@PathVariable Long userId, @RequestBody @Valid TeacherRequest teacherRequest){
         return teacherService.updateTeacherForManagers(userId, teacherRequest);
